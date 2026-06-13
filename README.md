@@ -57,6 +57,13 @@ pip install -r requirements-dev.txt
 pytest
 ```
 
+End-to-end прогін діалогу через реальний Realtime-модель (перевіряє, що
+всі чотири інструменти викликаються в розмові; потребує валідного `.env`):
+
+```bash
+python scripts/eval_dialog.py
+```
+
 ## Структура
 
 ```

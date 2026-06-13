@@ -50,11 +50,19 @@ python agent.py start    # продакшн
 Поговорити через браузер найшвидше в [LiveKit Agents Playground](https://agents-playground.livekit.io)
 — підключитись до того ж проєкту.
 
+## Тести
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
 ## Структура
 
 ```
-agent.py        # агент, сесія, обгортки інструментів
-tools.py        # mock-меню, замовлення та 4 функції
+agent.py            # агент, сесія, обгортки інструментів
+tools.py            # mock-меню, замовлення та 4 функції
+tests/test_tools.py # перевірка функцій і реєстрації інструментів
 requirements.txt
 .env.example
 ```

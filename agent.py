@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import os
 
 from dotenv import load_dotenv
 from livekit.agents import (
@@ -20,6 +21,9 @@ import tools
 load_dotenv()
 
 logger = logging.getLogger("pizza-agent")
+
+REALTIME_MODEL = os.getenv("REALTIME_MODEL", "gpt-realtime-mini")
+REALTIME_VOICE = os.getenv("REALTIME_VOICE", "coral")
 
 INSTRUCTIONS = """
 Ти — Марта, голосовий помічник піцерії «Везувіо». Спілкуєшся з клієнтом
@@ -121,7 +125,7 @@ async def entrypoint(ctx: JobContext) -> None:
     await ctx.connect()
 
     session = AgentSession(
-        llm=openai.realtime.RealtimeModel(model="gpt-realtime-mini", voice="coral"),
+        llm=openai.realtime.RealtimeModel(model=REALTIME_MODEL, voice=REALTIME_VOICE),
     )
 
     await session.start(agent=PizzaAgent(), room=ctx.room)

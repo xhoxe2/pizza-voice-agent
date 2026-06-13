@@ -94,7 +94,7 @@ class PizzaAgent(Agent):
             phone: Контактний телефон.
             address: Адреса доставки.
         """
-        logger.info("place_order", extra={"name": customer_name, "items": len(items)})
+        logger.info("place_order", extra={"customer": customer_name, "items": len(items)})
         return tools.create_order(
             items=[line.model_dump() for line in items],
             customer_name=customer_name,

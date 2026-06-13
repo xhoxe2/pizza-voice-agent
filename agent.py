@@ -9,11 +9,12 @@ from livekit.agents import (
     AgentServer,
     AgentSession,
     JobContext,
+    RoomInputOptions,
     RunContext,
     cli,
     function_tool,
 )
-from livekit.plugins import openai
+from livekit.plugins import noise_cancellation, openai
 from pydantic import BaseModel, Field
 
 import tools
@@ -128,7 +129,12 @@ async def entrypoint(ctx: JobContext) -> None:
         llm=openai.realtime.RealtimeModel(model=REALTIME_MODEL, voice=REALTIME_VOICE),
     )
 
-    await session.start(agent=PizzaAgent(), room=ctx.room)
+    await session.start(
+        agent=PizzaAgent(),
+        room=ctx.room,
+        # LiveKit Cloud noise cancellation — менше хибних спрацювань на шум.
+        room_input_options=RoomInputOptions(noise_cancellation=noise_cancellation.BVC()),
+    )
     await session.generate_reply(
         instructions="Привітайся, відрекомендуйся як Марта з піцерії «Везувіо» "
         "і коротко спитай, чим допомогти.",

@@ -1,5 +1,7 @@
 # Голосовий агент для піцерії
 
+[![tests](https://github.com/xhoxe2/pizza-voice-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/xhoxe2/pizza-voice-agent/actions/workflows/tests.yml)
+
 Голосовий помічник піцерії на **LiveKit Agents** + **OpenAI Realtime API**.
 Веде розмову українською, допомагає обрати страву, оформити та відстежити
 замовлення. Меню й замовлення — у `tools.py`, який під'єднано до агента

@@ -27,10 +27,14 @@ REALTIME_MODEL = os.getenv("REALTIME_MODEL", "gpt-realtime-mini")
 REALTIME_VOICE = os.getenv("REALTIME_VOICE", "cedar")
 
 INSTRUCTIONS = """
-Ти — Марта, голосовий помічник піцерії «Везувіо». Спілкуєшся з клієнтом
+Ти — Cedar, голосовий помічник піцерії «Везувіо». Спілкуєшся з клієнтом
 голосом по телефону, українською мовою, тепло й по-людськи.
 
-Як говорити:
+Манера мовлення (найважливіше):
+- Говори як жива людина, а не диктор: невимушено, з природною інтонацією,
+  без монотонності. Можна легкі розмовні слівця («ага», «звісно»,
+  «гарний вибір»), короткі паузи, теплу усмішку в голосі.
+- Темп спокійний, природний. Реагуй на настрій клієнта.
 - Коротко, одна-дві фрази за раз. Це голос, тому ніякого markdown,
   списків, зірочок, дужок чи емодзі — тільки жива розмовна мова.
 - Ціни називай словами: «сто вісімдесят дев'ять гривень».
@@ -126,7 +130,11 @@ async def entrypoint(ctx: JobContext) -> None:
     await ctx.connect()
 
     session = AgentSession(
-        llm=openai.realtime.RealtimeModel(model=REALTIME_MODEL, voice=REALTIME_VOICE),
+        llm=openai.realtime.RealtimeModel(
+            model=REALTIME_MODEL,
+            voice=REALTIME_VOICE,
+            temperature=0.9,  # трохи живіша, менш монотонна подача
+        ),
     )
 
     await session.start(
@@ -136,8 +144,8 @@ async def entrypoint(ctx: JobContext) -> None:
         room_input_options=RoomInputOptions(noise_cancellation=noise_cancellation.BVC()),
     )
     await session.generate_reply(
-        instructions="Привітайся, відрекомендуйся як Марта з піцерії «Везувіо» "
-        "і коротко спитай, чим допомогти.",
+        instructions="Привітайся тепло й невимушено, відрекомендуйся як Cedar "
+        "з піцерії «Везувіо» і коротко спитай, чим допомогти.",
     )
 
 

@@ -24,7 +24,7 @@ load_dotenv()
 logger = logging.getLogger("pizza-agent")
 
 REALTIME_MODEL = os.getenv("REALTIME_MODEL", "gpt-realtime-mini")
-REALTIME_VOICE = os.getenv("REALTIME_VOICE", "coral")
+REALTIME_VOICE = os.getenv("REALTIME_VOICE", "marin")
 
 INSTRUCTIONS = """
 Ти — Марта, голосовий помічник піцерії «Везувіо». Спілкуєшся з клієнтом
